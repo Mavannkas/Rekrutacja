@@ -54,4 +54,4 @@ Wszystkie endpointy powinny być zaimplementowane zgodnie z [specyfikacją](http
 #### Pobranie listy wolnych stolików
 
 - Zapytanie GET: `/tables`
-- Endpoint pozwala klientowi na pobranie listy wszystkich dostępnych  do rezerwacji stolików w określonym czasie i z odpowiednią liczbą  miejsc.
+- Endpoint pozwala klientowi na pobranie listy wszystkich dostępnych do rezerwacji stolików w określonym czasie i z odpowiednią liczbą  miejsc.

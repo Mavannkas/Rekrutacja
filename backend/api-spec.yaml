@@ -11,10 +11,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Reservation"
+              $ref: '#/components/schemas/Reservation'
       responses:
-        "201":
-          description: "Created"
+        '201':
+          description: 'Created'
           content:
             application/json:
               schema:
@@ -23,22 +23,22 @@ paths:
                   reservationId:
                     type: string
     get:
-      summary: "Returns a list of all reservations for the given date"
+      summary: 'Returns a list of all reservations for the given date'
       parameters:
         - in: query
           name: date
           schema:
             type: string
       responses:
-        "200":
-          description: "OK"
+        '200':
+          description: 'OK'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListOfReservations"
+                $ref: '#/components/schemas/ListOfReservations'
   /reservations/{id}:
     put:
-      summary: "Requests a cancellation of the reservation"
+      summary: 'Requests a cancellation of the reservation'
       parameters:
         - in: path
           name: id
@@ -54,13 +54,13 @@ paths:
               properties:
                 status:
                   type: string
-                  example: "requested cancellation"
+                  example: 'requested cancellation'
       responses:
-        "200":
-          description: "Success"
+        '200':
+          description: 'Success'
 
     delete:
-      summary: "Confirms the cancellation request by hecking the verification code"
+      summary: 'Confirms the cancellation request by hecking the verification code'
       parameters:
         - in: path
           name: id
@@ -77,12 +77,12 @@ paths:
                 verificationCode:
                   type: string
       responses:
-        "200":
-          description: "Success"
+        '200':
+          description: 'Success'
 
   /tables:
     get:
-      summary: "Returns a list of all available tables based on the given time and number of people."
+      summary: 'Returns a list of all available tables based on the given time and number of people.'
       parameters:
         - in: query
           name: status
@@ -102,12 +102,12 @@ paths:
             type: string
 
       responses:
-        "200":
-          description: "OK"
+        '200':
+          description: 'OK'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListOfTables"
+                $ref: '#/components/schemas/ListOfTables'
 components:
   schemas:
     Reservation:
@@ -133,7 +133,7 @@ components:
         bookings:
           type: array
           items:
-            $ref: "#/components/schemas/Reservation"
+            $ref: '#/components/schemas/Reservation'
     Table:
       type: object
       properties:
@@ -149,4 +149,4 @@ components:
         tables:
           type: array
           items:
-            $ref: "#/components/schemas/Table"
+            $ref: '#/components/schemas/Table'
