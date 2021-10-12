@@ -13,6 +13,7 @@ import {
 } from '@nestjs/common';
 import { ParseDatePipe } from 'src/pipes/parse-date.pipe';
 import { ReservationStatusEnum } from 'src/reservations/enums/reservation-status.enum';
+import { AllTablesResponse } from 'src/responses/table.response';
 import { TablesService } from './tables.service';
 
 @Controller('tables')
@@ -33,7 +34,7 @@ export class TablesController {
     status: string,
     @Query('duration', new DefaultValuePipe(1), new ParseIntPipe())
     duration: number,
-  ) {
+  ): Promise<AllTablesResponse> {
     return this.tablesService.getAllFreeTables(date, seats, duration);
   }
 }
