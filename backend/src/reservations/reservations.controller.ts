@@ -8,6 +8,7 @@ import {
   Delete,
   Put,
 } from '@nestjs/common';
+import { CreateReservationResponse } from 'src/responses/reservation.response';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { ReservationsService } from './reservations.service';
 
@@ -16,7 +17,9 @@ export class ReservationsController {
   constructor(private readonly reservationsService: ReservationsService) {}
 
   @Post()
-  create(@Body() createReservationDto: CreateReservationDto) {
+  create(
+    @Body() createReservationDto: CreateReservationDto,
+  ): Promise<CreateReservationResponse> {
     return this.reservationsService.create(createReservationDto);
   }
 
