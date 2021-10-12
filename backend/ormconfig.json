@@ -3,6 +3,6 @@
   "database": "database.db",
   "entities": ["dist/**/entities/*.entity{.ts,.js}"],
   "bigNumberStrings": false,
-  "logging": true,
+  "logging": false,
   "synchronize": true
 }

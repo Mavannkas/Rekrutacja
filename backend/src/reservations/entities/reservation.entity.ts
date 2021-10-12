@@ -59,12 +59,6 @@ export class Reservation extends BaseEntity {
   })
   cancellation_code: string | null;
 
-  @Column({
-    nullable: true,
-    default: null,
-  })
-  cancellation_code_expire: Date | null;
-
   @ManyToOne((type) => Table, (entity) => entity.reservations)
   table: Table;
 }

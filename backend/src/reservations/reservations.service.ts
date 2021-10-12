@@ -1,4 +1,6 @@
 import {
+  BadRequestException,
+  ForbiddenException,
   forwardRef,
   Inject,
   Injectable,
@@ -13,7 +15,9 @@ import {
 } from 'src/responses/reservation.response';
 import { Table } from 'src/tables/entities/table.entity';
 import { TablesService } from 'src/tables/tables.service';
+import { CancelReservationDto } from './dto/cancel-reservation.dto';
 import { CreateReservationDto } from './dto/create-reservation.dto';
+import { VerificationDto } from './dto/verification.dto';
 import { Reservation } from './entities/reservation.entity';
 import { ReservationStatusEnum } from './enums/reservation-status.enum';
 
@@ -40,11 +44,12 @@ export class ReservationsService {
     if (typeof table === 'undefined') {
       throw new NotFoundException('This table not exists');
     }
-
+    const inputedDate = new Date(createReservationDto.date);
+    console.log(inputedDate);
     if (
       !this.tablesService.isTableAvailable(
         table,
-        new Date(createReservationDto.date),
+        inputedDate,
         createReservationDto.duration,
       )
     ) {
@@ -125,12 +130,49 @@ export class ReservationsService {
     return `This action returns a #${id} reservation`;
   }
 
-  sendDeleteRequest(id: string) {
-    return `This action send remove request to ${id}`;
+  async sendDeleteRequest(
+    cancelReservationDto: CancelReservationDto,
+    id: string,
+  ): Promise<void> {
+    if (cancelReservationDto.status !== 'requested cancellation') {
+      throw new BadRequestException('Bad status');
+    }
+
+    const reservation = await Reservation.findOne({
+      where: { reservation_id: id },
+    });
+
+    if (!reservation) {
+      throw new NotFoundException('This id not exists');
+    }
+
+    if (reservation.date.getTime() - Date.now() <= 2 * HOUR_IN_MS) {
+      throw new ForbiddenException('Too late to cancel');
+    }
+
+    reservation.status = ReservationStatusEnum.requestedCancellation;
+    reservation.cancellation_code = Math.floor(
+      Math.random() * 90000 + 10000,
+    ).toString();
+
+    await reservation.save();
+    await this.mailService.sendCancelation(reservation);
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} reservation`;
+  async remove(verificationDto: VerificationDto, id: string): Promise<void> {
+    const reservation = await Reservation.findOne({
+      where: {
+        reservation_id: id,
+        cancellation_code: verificationDto.verificationCode,
+      },
+    });
+
+    if (!reservation) {
+      throw new NotFoundException();
+    }
+
+    await this.mailService.sendSubmit(reservation);
+    await reservation.remove();
   }
 
   isDatesOverlap(
