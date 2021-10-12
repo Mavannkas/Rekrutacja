@@ -19,7 +19,7 @@ Wszystkie endpointy powinny być zaimplementowane zgodnie z [specyfikacją](http
 - Zapytanie POST: `/reservations`.
 - Endpoint pozwala klientowi na złożenie nowej rezerwacji na stolik.
 - Istotne jest, aby przed zapisaniem rezerwacji sprawdzić poprawność wszystkich danych, oraz dostępność stolika w wybranym czasie.
-- Po udanej rezerwacji należy wysłać wiadomość na podany przez  użytkownika adres e-mail. W wiadomości powinny znaleźć się wszystkie  dane oraz unikalny numer rezerwacji. Do wysyłania "fake maili"  skorzystaj z [Ethereal](https://ethereal.email/).
+- Po udanej rezerwacji należy wysłać wiadomość na podany przez  użytkownika adres e-mail. W wiadomości powinny znaleźć się wszystkie  dane oraz unikalny numer rezerwacji. Do wysyłania "fake maili" możesz skorzystać z [Ethereal](https://ethereal.email/).
 - Należy zwrócić właściwą odpowiedź HTTP i zapisać rezerwację bazie danych.
 
 #### 
@@ -54,4 +54,5 @@ Wszystkie endpointy powinny być zaimplementowane zgodnie z [specyfikacją](http
 #### Pobranie listy wolnych stolików
 
 - Zapytanie GET: `/tables`
-- Endpoint pozwala klientowi na pobranie listy wszystkich dostępnych do rezerwacji stolików w określonym czasie i z odpowiednią liczbą  miejsc.
+- Endpoint pozwala klientowi na pobranie listy wszystkich dostępnych  do rezerwacji stolików w określonym czasie i z odpowiednią liczbą  miejsc.
+
