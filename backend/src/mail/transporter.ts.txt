@@ -1,0 +1,4 @@
+export const auth = {
+  user: 'YOUR NICK',
+  pass: 'YOUR PASS',
+};
